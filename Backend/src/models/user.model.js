@@ -20,15 +20,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    address: {
-        type: String
-    },
-    city: {
-        type: String
-    },
-    zipCode: {
-        type: Number
-    },
     accessToken: {
         type: String
     },
