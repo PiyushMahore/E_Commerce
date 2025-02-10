@@ -31,11 +31,9 @@ const placeOrder = asyncHandler(async (req, res) => {
 
     const mail = await sendOrderConfirmation(orderDetails);
 
-    if (!mail) {
+    if (!mail.messageId) {
         throw new apiError(500, "Failed to place order please try again later.");
     }
-
-    console.log(mail);
 
     const order = await Order.create({ product, address, city, quantity, orderdBy: req.user, zipCode, totalAmount: price * quantity });
 
