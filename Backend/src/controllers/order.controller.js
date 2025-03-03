@@ -5,13 +5,15 @@ import { User } from "../models/user.model.js";
 import { Order } from "../models/order.model.js";
 import { sendOrderConfirmation } from "../utils/orderGmail.js";
 import Razorpay from "razorpay";
-var instance = new Razorpay({ key_id: `${process.env.ROZARPAY_APIKEY}`, key_secret: `${process.env.ROZARPAY_API_SECRET}` })
+const instance = new Razorpay({ key_id: `${process.env.ROZARPAY_APIKEY}`, key_secret: `${process.env.ROZARPAY_API_SECRET}` })
 
 const placeOrder = asyncHandler(async (req, res) => {
     const { address, city, zipCode, product, quantity, price } = req.body;
 
+    console.log("HI")
+
     const order = await instance.orders.create({
-        amount: price || "50000",
+        amount: price,
         currency: "INR",
     });
 

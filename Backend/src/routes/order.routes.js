@@ -4,4 +4,4 @@ import verifyJwt from "../middlewares/verifyJwt.middleware.js";
 
 export const orderRoute = Router();
 
-orderRoute.route("/place-order").post(verifyJwt, placeOrder);
+orderRoute.route("/place-order").post(placeOrder);

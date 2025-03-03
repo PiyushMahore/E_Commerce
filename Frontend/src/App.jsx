@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 
 function loadScript(src) {
   return new Promise((resolve) => {
@@ -23,11 +24,9 @@ function App() {
       return
     }
 
-    const data = await fetch('http://localhost:9000/api/order/place-order', { method: 'POST' }).then((t) =>
-      t.json()
-    )
-
-    console.log(data)
+    const data = await axios.post("http://localhost:9000/api/order/place-order", {
+      price: "50000"
+    });
 
     const options = {
       "key": "rzp_test_CjPAUfqC614iLK", // Enter the Key ID generated from the Dashboard
@@ -43,7 +42,7 @@ function App() {
       },
       "theme": {
         "color": "#3399cc"
-      }
+      },
     };
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
@@ -53,7 +52,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={"logo"} className="App-logo" alt="logo" />
-        <button
+        <button className="cursor-pointer"
           onClick={displayRazorpay}
         >
           Pay now

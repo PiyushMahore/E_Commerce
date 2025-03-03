@@ -7,7 +7,7 @@ const verifyJwt = asyncHandler(async (req, res, next) => {
         const token = req.cookies.RefreshToken || req.header("Authorization")?.replace("Bearer ", "");
 
         if (!token) {
-            return "user not logged in."
+            throw new apiError(400, "User not logged in!");
         }
 
         const decodedToken = jwt.verify(token, process.env.REFRESH_TOKEN);
