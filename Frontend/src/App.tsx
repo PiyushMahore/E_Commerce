@@ -1,9 +1,10 @@
-import { Button } from "./components/ui/button";
+import "./App.css"
+import Nav from "./components/ui/nav"
 
 function App() {
   return (
     <div>
-      <Button>Click Me</Button>
+      <Nav />
     </div>
   )
 }
