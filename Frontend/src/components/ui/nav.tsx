@@ -121,7 +121,7 @@ function Nav() {
                                         <span className="text-xs text-gray-400">
                                             Login / Signup
                                         </span>
-                                        <span className="select-none cursor-pointer flex items-center gap-1.5 text-lg font-semibold">
+                                        <span className="cursor-pointer flex items-center gap-1.5 text-lg font-semibold">
                                             My Account <FaChevronDown />
                                         </span>
                                     </span>
