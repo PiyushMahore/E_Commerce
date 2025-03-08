@@ -31,7 +31,7 @@ function Nav() {
     }, [])
 
     return (
-        <div className='py-5 lg:px-16 px-2 h-fit'>
+        <div className='pt-5 lg:px-16 px-2 h-fit'>
             <div className="flex items-center justify-between">
                 <div className='sm:w-40 w-36 flex items-center gap-2.5'>
                     <div className="lg:hidden">
@@ -162,7 +162,7 @@ function Nav() {
             {
                 screenWidth
                     ?
-                    <div className={`px-3 mt-2.5 ${searchInput ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-full pointer-events-none"} transition-all duration-500 ease-out`}>
+                    <div className={`px-3 ${searchInput ? "opacity-100 translate-y-0 pointer-events-auto py-2.5" : "opacity-0 -translate-y-full pointer-events-none"} transition-all duration-500 ease-out`}>
                         <Input type="search" placeholder="search...." />
                     </div>
                     :
