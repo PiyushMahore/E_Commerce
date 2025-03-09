@@ -156,6 +156,7 @@ function Nav() {
                     </DropdownMenu>
                     <div className="flex items-center cursor-pointer">
                         <BsCart2 size={30} />
+                        {/* <li className="absolute list-none z-50 top-6  bg-gray-800 text-white rounded-full px-2 py-0.5 text-xs">0</li> */}
                     </div>
                 </div>
             </div>

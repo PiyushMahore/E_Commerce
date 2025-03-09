@@ -5,15 +5,15 @@ import { FC, useEffect, useState } from "react"
 import { GoArrowRight } from "react-icons/go";
 
 interface Products {
-    img: string,
-    mrp: number,
-    disPrice: number,
-    itemName: String
+    img: string;
+    mrp: number;
+    disPrice: number;
+    itemName: string;
 }
 
 interface ProductsCartProps {
-    items: Products[],
-    category: String
+    items: Products[];
+    category: string;
 }
 
 const ProductsCart: FC<ProductsCartProps> = ({ items, category }) => {
@@ -32,7 +32,7 @@ const ProductsCart: FC<ProductsCartProps> = ({ items, category }) => {
     }, [])
 
     return (
-        <div className="w-full md:h-screen py-12 pl-6 flex justify-center items-start gap-6 flex-col md:px-14 overflow-hidden">
+        <div className="w-full py-8 pl-6 flex justify-center items-start gap-6 flex-col md:px-14 overflow-hidden">
             <div className="flex justify-between w-full items-center text-sm overflow-hidden">
                 <h3 className="text-xl font-semibold">{category}</h3>
                 <div className="pr-5 md:pr-0 flex items-center gap-2 md:translate-x-7 md:hover:translate-x-0 transition-all duration-500">
