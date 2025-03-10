@@ -1,5 +1,6 @@
 import "./App.css"
 import Nav from "./components/ui/nav"
+import Feature from "./pages/feature"
 import HealthySnacking from "./pages/healthySnacking"
 import Hero from "./pages/hero"
 import NewLaunches from "./pages/newLaunches"
@@ -16,6 +17,7 @@ function App() {
         <ProductsOfTheMonth />
         <NewLaunches />
         <HealthySnacking />
+        <Feature />
       </div>
     </>
   )
