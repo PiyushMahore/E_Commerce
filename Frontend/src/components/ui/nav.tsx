@@ -83,7 +83,7 @@ function Nav() {
                     </a>
                 </div>
                 <div className='hidden md:flex'>
-                    <Input className='flex 2xl:w-[800px] lg:w-[450px] w-[300px] rounded-none rounded-l-2xl focus:rounded-r-2xl' id="search" placeholder="Search...." />
+                    <Input className='flex 2xl:w-[700px] lg:w-[400px] w-[250px] rounded-none rounded-l-2xl focus:rounded-r-2xl' id="search" placeholder="Search...." />
                     <NavigationMenu className="border xl:flex hidden">
                         <NavigationMenuList>
                             <NavigationMenuItem>
@@ -156,7 +156,7 @@ function Nav() {
                     </DropdownMenu>
                     <div className="flex items-center cursor-pointer">
                         <BsCart2 size={30} />
-                        {/* <li className="absolute list-none z-50 top-6  bg-gray-800 text-white rounded-full px-2 py-0.5 text-xs">0</li> */}
+                        <sup className="text-sm -translate-x-2 bg-[#283b53] px-1.5 rounded-full text-white">0</sup>
                     </div>
                 </div>
             </div>
