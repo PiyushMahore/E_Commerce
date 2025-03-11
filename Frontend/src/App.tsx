@@ -1,11 +1,7 @@
+import { Outlet } from "react-router"
 import "./App.css"
 import Nav from "./components/ui/nav"
-import Feature from "./pages/feature"
 import Footer from "./pages/footer"
-import HealthySnacking from "./pages/healthySnacking"
-import Hero from "./pages/hero"
-import NewLaunches from "./pages/newLaunches"
-import ProductsOfTheMonth from "./pages/productsOfTheMonth"
 
 function App() {
   return (
@@ -14,11 +10,7 @@ function App() {
         <Nav />
       </div>
       <div className="max-w-screen mt-20 lg:mt-36">
-        <Hero />
-        <ProductsOfTheMonth />
-        <NewLaunches />
-        <HealthySnacking />
-        <Feature />
+        <Outlet />
       </div>
       <div>
         <Footer />
