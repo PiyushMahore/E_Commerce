@@ -117,7 +117,7 @@ function Nav() {
                                     ?
                                     <MdAccountCircle size={35} />
                                     :
-                                    <span className="flex flex-col items-start">
+                                    <span className="flex flex-col items-start border-none">
                                         <span className="text-xs text-gray-400">
                                             Login / Signup
                                         </span>

@@ -43,7 +43,7 @@ function Hero() {
     }, [])
 
     return (
-        <Carousel opts={{ align: "start", loop: true, slidesToScroll: "auto" }} plugins={[plugin.current]} className="w-full transition-all duration-300 mb-8">
+        <Carousel opts={{ align: "start", loop: true, slidesToScroll: "auto" }} plugins={[plugin.current]} className="w-full transition-all duration-300 mb-8 select-none">
             <CarouselContent>
                 {
                     !screenWidth ? webImgs.map((img, index) => (
