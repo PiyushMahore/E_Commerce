@@ -1,4 +1,4 @@
-import ProductsCart from "@/components/productsCard";
+import ProductsCart from "@/components/ui/productsCard";
 
 function HealthySnacking() {
   const healthySnacking = [

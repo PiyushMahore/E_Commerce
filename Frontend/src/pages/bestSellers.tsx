@@ -1,7 +1,16 @@
-import ProductsCart from '@/components/ui/productsCard'
+import ProductCategory from '@/components/ui/productCategory';
+import { useState } from 'react';
+import {
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+    BreadcrumbPage,
+    BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
 
-function NewLaunches() {
-    const newLaunches = [
+function BestSellers() {
+    const [bestSellers] = useState([
         {
             img: 'https://www.farmley.com/cdn/shop/files/panchmeva-80_300x.jpg?v=1715172755',
             mrp: 549.00,
@@ -63,13 +72,24 @@ function NewLaunches() {
             disPrice: 299.00,
             itemName: 'Classic Salted Cashews - Roasted (160g)'
         }
-    ]
-
+    ]);
     return (
-        <>
-            <ProductsCart items={newLaunches} category='New Launches' />
-        </>
+        <div className='px-16'>
+            <Breadcrumb className='my-4'>
+                <BreadcrumbList>
+                    <BreadcrumbItem>
+                        <BreadcrumbLink href="/">Home</BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                        <BreadcrumbPage>Best Sellers</BreadcrumbPage>
+                    </BreadcrumbItem>
+                </BreadcrumbList>
+            </Breadcrumb>
+
+            <ProductCategory category='Best Sellers' products={bestSellers} />
+        </div>
     )
 }
 
-export default NewLaunches
+export default BestSellers;
