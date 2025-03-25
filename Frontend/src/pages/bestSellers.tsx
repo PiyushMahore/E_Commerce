@@ -74,8 +74,8 @@ function BestSellers() {
         }
     ]);
     return (
-        <div className='px-16'>
-            <Breadcrumb className='my-4'>
+        <div className='lg:px-16 px-0.5 lg:mt-0 mt-24'>
+            <Breadcrumb className='my-4 hidden lg:block'>
                 <BreadcrumbList>
                     <BreadcrumbItem>
                         <BreadcrumbLink href="/">Home</BreadcrumbLink>

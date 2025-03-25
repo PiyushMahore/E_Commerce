@@ -175,7 +175,7 @@ function Nav() {
                 <div className='flex items-center gap-2.5 sm:gap-10'>
                     <span onClick={() => setSearchInput(!searchInput)} className="flex items-center md:hidden"><IoMdSearch size={35} /></span>
                     <DropdownMenu>
-                        <DropdownMenuTrigger>
+                        <DropdownMenuTrigger className="outline-none">
                             {
                                 screenWidth
                                     ?
