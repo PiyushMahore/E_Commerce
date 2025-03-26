@@ -3,6 +3,7 @@ import { Card, CardContent, CardTitle } from "@/components/ui/card"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import { FC, useEffect, useState } from "react"
 import { GoArrowRight } from "react-icons/go";
+import { NavLink } from "react-router";
 
 interface Products {
     img: string;
@@ -51,16 +52,26 @@ const ProductsCart: FC<ProductsCartProps> = ({ items, category }) => {
                                             <div className="bg-green-500 px-3 text-xs text-white font-semibold py-1 rounded-r-sm absolute -left-9 -top-0">
                                                 Save Rs. {_.mrp - _.disPrice}
                                             </div>
-                                            <img src={_.img} alt="" />
+                                            <a href={`/products/${_.itemName}`}>
+                                                <img src={_.img} alt="" />
+                                            </a>
                                         </div>
-                                        <CardTitle>{_.itemName}</CardTitle>
+                                        <CardTitle>
+                                            <a href={`/products/${_.itemName}`}>
+                                                {_.itemName}
+                                            </a>
+                                        </CardTitle>
                                         <div className="flex justify-between items-start w-full">
                                             <CardTitle className="text-green-400 font-semibold ">From Rs.<br />{_.disPrice}</CardTitle>
                                             <CardTitle className="text-xs line-through">Rs.<br />{_.mrp}</CardTitle>
                                         </div>
                                     </CardContent>
                                     <div className="w-full text-center">
-                                        <Button className="rounded-none text-xs bg-[#283b53] hover:bg-[#547192] px-12 transition-colors ease-in-out duration-300">Choose Options</Button>
+                                        <Button className="rounded-none text-xs cursor-pointer bg-[#283b53] hover:bg-[#547192] px-12 transition-colors ease-in-out duration-300">
+                                            <a href={`/products/${_.itemName}`}>
+                                                Choose Options
+                                            </a>
+                                        </Button>
                                     </div>
                                 </Card>
                             </div>

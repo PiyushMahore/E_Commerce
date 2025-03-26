@@ -2,7 +2,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/compon
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { NavLink } from "react-router";
 import { FaChevronDown } from "react-icons/fa6";
 import { BsCart2 } from "react-icons/bs";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu"
@@ -103,14 +103,46 @@ function Nav() {
                             <SheetTrigger><MdOutlineMenu size={30} /></SheetTrigger>
                             <SheetContent side="left">
                                 <SheetHeader>
-                                    <SheetTitle>Home</SheetTitle>
-                                    <SheetTitle>Best Seller</SheetTitle>
-                                    <SheetTitle>New Launches</SheetTitle>
-                                    <SheetTitle>Healthy Yummy Snacking</SheetTitle>
-                                    <SheetTitle>Exotic Range</SheetTitle>
-                                    <SheetTitle>Combos</SheetTitle>
-                                    <SheetTitle>Bulk Orders</SheetTitle>
-                                    <SheetTitle>Contact Us</SheetTitle>
+                                    <SheetTitle>
+                                        <NavLink to='/'>
+                                            Home
+                                        </NavLink>
+                                    </SheetTitle>
+                                    <SheetTitle>
+                                        <NavLink to='/collections/all'>
+                                            Best Seller
+                                        </NavLink>
+                                    </SheetTitle>
+                                    <SheetTitle>
+                                        <NavLink to='/collections/new-launches'>
+                                            New Launches
+                                        </NavLink>
+                                    </SheetTitle>
+                                    <SheetTitle>
+                                        <NavLink to='/collections/wholesome-mixes-for-anytime-snacking'>
+                                            Healthy Yummy Snacking
+                                        </NavLink>
+                                    </SheetTitle>
+                                    <SheetTitle>
+                                        <NavLink to='/collections/exotic-fruits-berries'>
+                                            Exotic Range
+                                        </NavLink>
+                                    </SheetTitle>
+                                    <SheetTitle>
+                                        <NavLink to='/collections/combos'>
+                                            Combos
+                                        </NavLink>
+                                    </SheetTitle>
+                                    <SheetTitle>
+                                        <NavLink to='/contact-us'>
+                                            Bulk Orders
+                                        </NavLink>
+                                    </SheetTitle>
+                                    <SheetTitle>
+                                        <NavLink to='/contact-us'>
+                                            Contact Us
+                                        </NavLink>
+                                    </SheetTitle>
                                 </SheetHeader>
                                 <hr />
                                 <SheetHeader>
@@ -211,7 +243,7 @@ function Nav() {
                                 </CardContent>
                                 <CardFooter className="flex justify-between w-full flex-col gap-2.5">
                                     <Button className="w-full py-5 rounded-none">Login</Button>
-                                    <p className="text-xs">New customer? <a href="#">Create your account</a></p>
+                                    <p className="text-xs">New customer? <NavLink to="/account/register">Create your account</NavLink></p>
                                     <p className="text-xs">Lost password? <a href="#">Recover password</a></p>
                                 </CardFooter>
                             </Card>
@@ -239,17 +271,49 @@ function Nav() {
 
             <div className="py-6 lg:flex hidden">
                 <ul className="list-none flex gap-8 text-gray-500 text-sm">
-                    <li className="cursor-pointer">Home</li>
-                    <li className="cursor-pointer">Best Seller</li>
-                    <li className="cursor-pointer">New Launches</li>
-                    <li className="cursor-pointer">Healthy Yummy Snacking</li>
-                    <li className="cursor-pointer">Exotic Range</li>
-                    <li className="cursor-pointer">Combos</li>
-                    <li className="cursor-pointer">Bulk Orders</li>
-                    <li className="cursor-pointer">Contact Us</li>
+                    <li className="cursor-pointer">
+                        <NavLink to='/'>
+                            Home
+                        </NavLink>
+                    </li>
+                    <li className="cursor-pointer">
+                        <NavLink to='/collections/all'>
+                            Best Seller
+                        </NavLink>
+                    </li>
+                    <li className="cursor-pointer">
+                        <NavLink to='/collections/new-launches'>
+                            New Launches
+                        </NavLink>
+                    </li>
+                    <li className="cursor-pointer">
+                        <NavLink to='/collections/wholesome-mixes-for-anytime-snacking'>
+                            Healthy Yummy Snacking
+                        </NavLink>
+                    </li>
+                    <li className="cursor-pointer">
+                        <NavLink to='/collections/exotic-fruits-berries'>
+                            Exotic Range
+                        </NavLink>
+                    </li>
+                    <li className="cursor-pointer">
+                        <NavLink to='/collections/combos'>
+                            Combos
+                        </NavLink>
+                    </li>
+                    <li className="cursor-pointer">
+                        <NavLink to='/contact-us'>
+                            Bulk Orders
+                        </NavLink>
+                    </li>
+                    <li className="cursor-pointer">
+                        <NavLink to='/contact-us'>
+                            Contact Us
+                        </NavLink>
+                    </li>
                 </ul>
             </div>
-        </div>
+        </div >
     )
 }
 

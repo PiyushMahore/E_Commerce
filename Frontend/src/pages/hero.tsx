@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Card } from "@/components/ui/card"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import Autoplay from "embla-carousel-autoplay"
+import { NavLink } from "react-router";
 
 function Hero() {
     const [screenWidth, setScreenWidth] = useState(window.innerWidth < 640);
@@ -47,36 +48,41 @@ function Hero() {
             <CarouselContent>
                 {
                     !screenWidth ? webImgs.map((img, index) => (
-                        <CarouselItem className="pl-0" key={index}>
-                            <div>
-                                <Card className="p-0">
-                                    <img className="bg-cover bg-center w-full h-full" src={img.imgSrc} alt="" />
-                                </Card>
-                            </div>
+                        <CarouselItem key={index} className="pl-0">
+                            <NavLink to={`/products/${"here"}`}>
+                                <div>
+                                    <Card className="p-0">
+                                        <img className="bg-cover bg-center w-full h-full" src={img.imgSrc} alt="" />
+                                    </Card>
+                                </div>
+                            </NavLink>
                         </CarouselItem>
                     ))
                         :
                         mobileImgs.map((img, index) => (
-                            <CarouselItem className="pl-0" key={index}>
-                                <div>
-                                    <Card className="p-0">
-                                        <img src={img.imgSrc} alt="" />
-                                    </Card>
-                                </div>
+                            <CarouselItem key={index} className="pl-0">
+                                <NavLink to={`products/${"here"}`}>
+                                    <div>
+                                        <Card className="p-0">
+                                            <img src={img.imgSrc} alt="" />
+                                        </Card>
+                                    </div>
+                                </NavLink>
                             </CarouselItem>
                         ))
                 }
             </CarouselContent>
-            {!screenWidth
-                ?
-                <>
-                    <CarouselNext className="absolute right-2" />
-                    <CarouselPrevious className="absolute left-2" />
-                </>
-                :
-                null
+            {
+                !screenWidth
+                    ?
+                    <>
+                        <CarouselNext className="absolute right-2" />
+                        <CarouselPrevious className="absolute left-2" />
+                    </>
+                    :
+                    null
             }
-        </Carousel>
+        </Carousel >
     )
 }
 
