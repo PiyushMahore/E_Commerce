@@ -170,7 +170,7 @@ function Nav() {
                         </NavigationMenuList>
                     </NavigationMenu>
 
-                    <Button className="flex rounded-none rounded-r-2xl">Search</Button>
+                    <Button className="flex rounded-none rounded-r-2xl cursor-pointer">Search</Button>
                 </div>
                 <div className='flex items-center gap-2.5 sm:gap-10'>
                     <span onClick={() => setSearchInput(!searchInput)} className="flex items-center md:hidden"><IoMdSearch size={35} /></span>
@@ -201,19 +201,18 @@ function Nav() {
                                     <form>
                                         <div className="grid w-full items-center gap-4">
                                             <div className="flex flex-col space-y-1.5">
-                                                <Label htmlFor="email">Email</Label>
-                                                <Input id="email" placeholder="Enter Your Email" />
+                                                <Input className="rounded-none" id="email" placeholder="Email" />
                                             </div>
                                             <div className="flex flex-col space-y-1.5">
-                                                <Label htmlFor="password">Password</Label>
-                                                <Input id="password" placeholder="Enter Your Password" />
+                                                <Input className="rounded-none" id="password" placeholder="Password" />
                                             </div>
                                         </div>
                                     </form>
                                 </CardContent>
-                                <CardFooter className="flex justify-between">
-                                    <Button variant="outline">Cancel</Button>
-                                    <Button>Sign In</Button>
+                                <CardFooter className="flex justify-between w-full flex-col gap-2.5">
+                                    <Button className="w-full py-5 rounded-none">Login</Button>
+                                    <p className="text-xs">New customer? <a href="#">Create your account</a></p>
+                                    <p className="text-xs">Lost password? <a href="#">Recover password</a></p>
                                 </CardFooter>
                             </Card>
                         </DropdownMenuContent>

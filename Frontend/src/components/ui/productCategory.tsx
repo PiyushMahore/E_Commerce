@@ -99,7 +99,7 @@ const ProductCategory: FC<props> = ({ category, products }) => {
                 </Accordion>
             </div>
             <div className="border lg:w-[78%] w-full">
-                <div className="py-7 lg:px-7 grid gap-3 border-b">
+                <div className="pt-6 lg:pb-4 lg:px-7 grid gap-3 border-b">
                     <h3 className="text-2xl font-semibold lg:px-0 px-5">{category}</h3>
                     <p className="text-xs lg:hidden px-5">{products.length} Products</p>
                     <div className="flex justify-between text-xs">
@@ -264,32 +264,36 @@ const ProductCategory: FC<props> = ({ category, products }) => {
                                     </DrawerContent>
                                 </Drawer>
                             </div>
-                            <span className="flex items-center gap-2"><span className="lg:block hidden">View</span><PiListBulletsBold className={`transition-colors hover:text-gray-800 duration-300 ${view == "grid" ? "text-gray-400" : ""}`} onClick={() => setView("list")} size={25} /> <BsGrid3X3GapFill className={`transition-colors hover:text-gray-800 duration-300 ${view == "grid" ? "" : "text-gray-400"}`} onClick={() => setView("grid")} size={20} /></span>
+                            <span className="flex items-center gap-2"><span className="lg:block hidden">View</span><BsGrid3X3GapFill className={`transition-colors hover:text-gray-800 duration-300 ${view == "grid" ? "" : "text-gray-400"}`} onClick={() => setView("grid")} size={20} /> <PiListBulletsBold className={`transition-colors hover:text-gray-800 duration-300 ${view == "grid" ? "text-gray-400" : ""}`} onClick={() => setView("list")} size={25} /> </span>
                         </div>
                     </div>
                 </div >
 
-                <div className={`grid items-stretch justify-center mx-0 w-full ${view == "grid" ? "lg:grid-cols-4 grid-cols-2" : "grid-flow-row"}`}>
+                <div className={`grid justify-center mx-0 w-full ${view == "grid" ? "lg:grid-cols-3 xl:grid-cols-4 grid-cols-2 auto-rows-fr" : "grid-flow-row"}`}>
                     {
                         products && products.map((product, idx) => (
-                            <div key={idx} className={`p-0 ${view == "grid" ? "w-auto" : "w-full"}`}>
-                                <Card className="rounded-none w-full">
-                                    <CardContent className={`flex ${view == "grid" ? "h-[300px] flex-col aspect-square justify-between" : "items-center w-full"}`}>
-                                        <div className={`relative p-3 flex justify-center items-center ${view == "grid" ? "" : "w-[20%]"}`}>
+                            <div key={idx} className="p-0 w-full h-full">
+                                <Card className="rounded-none w-full h-full flex flex-col">
+                                    <CardContent className={`flex ${view == "grid" ? "flex-col" : "lg:flex-row flex-col lg:items-center"} h-full`}>
+                                        <div className="relative p-3 flex justify-center items-center">
                                             <div className="bg-green-500 px-5 text-xs text-white font-semibold py-1 rounded-r-sm absolute -left-6 -top-0">
                                                 Save Rs. {product.mrp - product.disPrice}
                                             </div>
-                                            <img className="h-36" src={product.img} alt="" />
+                                            <img className="h-36 cursor-pointer" src={product.img} alt="" />
                                         </div>
-                                        <div className={`${view == "grid" ? "" : "w-[60%]"} grid gap-2`}>
-                                            <CardTitle className={`${view == "grid" ? "text-xs" : "text-lg"}`}>{product.itemName}</CardTitle>
+
+                                        <div className="flex flex-col flex-grow gap-2">
+                                            <CardTitle className={`${view == "grid" ? "" : "xl:text-xl"} text-xs  cursor-pointer`}>{product.itemName}</CardTitle>
                                             <div className="flex items-center w-full gap-3">
                                                 <CardTitle className="text-green-400 text-lg">From Rs. {product.disPrice}</CardTitle>
                                                 <CardTitle className="text-xs line-through">Rs. {product.mrp}</CardTitle>
                                             </div>
                                         </div>
-                                        <div className={`${view == "grid" ? "" : "w-[20%]"} text-center`}>
-                                            <Button className="w-full rounded-none text-xs bg-[#283b53] hover:bg-[#547192] px-12 transition-colors ease-in-out duration-300">Choose Options</Button>
+
+                                        <div className="mt-auto text-center">
+                                            <Button className="cursor-pointer w-full rounded-none text-xs bg-[#283b53] hover:bg-[#547192] px-12 transition-colors ease-in-out duration-300">
+                                                Choose Options
+                                            </Button>
                                         </div>
                                     </CardContent>
                                 </Card>
@@ -297,6 +301,7 @@ const ProductCategory: FC<props> = ({ category, products }) => {
                         ))
                     }
                 </div>
+
             </div >
         </div >
     )
