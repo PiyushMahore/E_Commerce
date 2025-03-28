@@ -15,6 +15,7 @@ import { FaTwitter, FaFacebookF, FaInstagram } from "react-icons/fa6";
 import { useEffect, useState } from "react"
 import Cart from "@/pages/cart"
 import { useAuth } from "@/context/userContextProvider";
+import { DropdownMenuItem } from "@/components/ui/dropdown-menu"
 
 function Nav() {
     const [screenWidth, setScreenWidth] = useState(window.innerWidth < 1024);
@@ -98,6 +99,10 @@ function Nav() {
             dscPrice: 899.00
         },
     ]);
+
+    useEffect(() => {
+        console.log(auth?.user)
+    }, [auth?.user])
 
     return (
         <div className='pt-5 lg:px-16 px-2 h-fit'>
@@ -218,41 +223,50 @@ function Nav() {
                                     ?
                                     <MdAccountCircle size={35} />
                                     :
-                                    <span className="flex flex-col items-start border-none">
-                                        <span className="text-xs text-gray-400">
-                                            Login / Signup
+                                    <span className="flex flex-col items-start border-none text-sm">
+                                        <span className="text-gray-400 text-xs">
+                                            {auth?.user ? `Hello ${auth.user?.data.firstName}` : "Login / Signup"}
                                         </span>
-                                        <span className="cursor-pointer flex items-center gap-1.5 text-lg font-semibold">
+                                        <span className="cursor-pointer flex items-center gap-1.5 font-semibold">
                                             My Account <FaChevronDown />
                                         </span>
                                     </span>
                             }
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent className='w-fit h-fit p-0 rounded-2xl mr-2 md:mr-0'>
-                            <Card className="w-[350px]">
-                                <CardHeader className="text-center">
-                                    <CardTitle>Login to your account</CardTitle>
-                                    <CardDescription>Enter your e-mail and password:</CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <form>
-                                        <div className="grid w-full items-center gap-4">
-                                            <div className="flex flex-col space-y-1.5">
-                                                <Input className="rounded-none" id="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+                        {auth?.user?.data
+                            ?
+                            <DropdownMenuContent className="rounded-sm py-2">
+                                <DropdownMenuItem className="px-4">My orders</DropdownMenuItem>
+                                <DropdownMenuItem className="px-4">My address</DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => auth.logout()} className="px-4">Logout</DropdownMenuItem>
+                            </DropdownMenuContent>
+                            :
+                            <DropdownMenuContent className='w-fit h-fit p-0 rounded-sm mr-2 md:mr-0'>
+                                <Card className="w-[350px]">
+                                    <CardHeader className="text-center">
+                                        <CardTitle>Login to your account</CardTitle>
+                                        <CardDescription>Enter your e-mail and password:</CardDescription>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <form>
+                                            <div className="grid w-full items-center gap-4">
+                                                <div className="flex flex-col space-y-1.5">
+                                                    <Input className="rounded-none" id="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+                                                </div>
+                                                <div className="flex flex-col space-y-1.5">
+                                                    <Input className="rounded-none" id="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+                                                </div>
                                             </div>
-                                            <div className="flex flex-col space-y-1.5">
-                                                <Input className="rounded-none" id="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
-                                            </div>
-                                        </div>
-                                    </form>
-                                </CardContent>
-                                <CardFooter className="flex justify-between w-full flex-col gap-2.5">
-                                    <Button onClick={() => auth?.login(email, password)} className="w-full py-5 rounded-none">Login</Button>
-                                    <p className="text-xs">New customer? <NavLink to="/account/register">Create your account</NavLink></p>
-                                    <p className="text-xs">Lost password? <a href="#">Recover password</a></p>
-                                </CardFooter>
-                            </Card>
-                        </DropdownMenuContent>
+                                        </form>
+                                    </CardContent>
+                                    <CardFooter className="flex justify-between w-full flex-col gap-2.5">
+                                        <Button onClick={() => auth?.login(email, password)} className="w-full py-5 rounded-none">Login</Button>
+                                        <p className="text-xs">New customer? <NavLink to="/account/register">Create your account</NavLink></p>
+                                        <p className="text-xs">Lost password? <a href="#">Recover password</a></p>
+                                    </CardFooter>
+                                </Card>
+                            </DropdownMenuContent>
+                        }
                     </DropdownMenu>
                     <Sheet>
                         <SheetTrigger className="flex items-center cursor-pointer">

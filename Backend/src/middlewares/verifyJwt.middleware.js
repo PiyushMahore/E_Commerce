@@ -2,7 +2,7 @@ import apiError from "../utils/apiError.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import jwt from "jsonwebtoken";
 
-const verifyJwt = asyncHandler(async (req, res, next) => {
+const verifyJwt = asyncHandler(async (req, _, next) => {
     try {
         const token = req.cookies.RefreshToken || req.header("Authorization")?.replace("Bearer ", "");
 
@@ -19,7 +19,7 @@ const verifyJwt = asyncHandler(async (req, res, next) => {
         req.user = decodedToken;
         next();
     } catch (error) {
-        console.log("Somthing went wrong while getting current user");
+        throw new apiError(400, "Somthing went wrong while getting current user")
     }
 });
 

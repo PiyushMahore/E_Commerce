@@ -9,9 +9,6 @@ const instance = new Razorpay({ key_id: `${process.env.ROZARPAY_APIKEY}`, key_se
 
 const placeOrder = asyncHandler(async (req, res) => {
     const { address, city, zipCode, product, quantity, price } = req.body;
-
-    console.log("HI")
-
     const order = await instance.orders.create({
         amount: price,
         currency: "INR",
