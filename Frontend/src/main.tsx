@@ -11,21 +11,24 @@ import AllHealthySnaking from './pages/allHealthySnaking.tsx';
 import ExotixRange from './pages/exotixRange.tsx';
 import Combos from './pages/combos.tsx';
 import IndividualItem from './pages/individualItem.tsx';
+import { UserContextProvider } from './context/userContextProvider.tsx';
 
 createRoot(document.getElementById('root')!).render(
-  <BrowserRouter>
-    <Routes>
-      <Route path='/' element={<App />} >
-        <Route index element={<Home />} />
-        <Route path='/account/register' element={<SignUp />} />
-        <Route path='/collections/all' element={<BestSellers />} />
-        <Route path='/collections/new-launches' element={<AllNewLaunches />} />
-        <Route path='/collections/wholesome-mixes-for-anytime-snacking' element={<AllHealthySnaking />} />
-        <Route path='/collections/exotic-fruits-berries' element={<ExotixRange />} />
-        <Route path='/collections/combos' element={<Combos />} />
-        <Route path='/products/:productName' element={<IndividualItem />} />
-        <Route path='/contact-us' element={<ContactUs />} />
-      </Route>
-    </Routes>
-  </BrowserRouter>,
+  <UserContextProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<App />} >
+          <Route index element={<Home />} />
+          <Route path='/account/register' element={<SignUp />} />
+          <Route path='/collections/all' element={<BestSellers />} />
+          <Route path='/collections/new-launches' element={<AllNewLaunches />} />
+          <Route path='/collections/wholesome-mixes-for-anytime-snacking' element={<AllHealthySnaking />} />
+          <Route path='/collections/exotic-fruits-berries' element={<ExotixRange />} />
+          <Route path='/collections/combos' element={<Combos />} />
+          <Route path='/products/:productName' element={<IndividualItem />} />
+          <Route path='/contact-us' element={<ContactUs />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  </UserContextProvider>
 )

@@ -14,10 +14,15 @@ import { MdAttachEmail } from "react-icons/md";
 import { FaTwitter, FaFacebookF, FaInstagram } from "react-icons/fa6";
 import { useEffect, useState } from "react"
 import Cart from "@/pages/cart"
+import { useAuth } from "@/context/userContextProvider";
 
 function Nav() {
     const [screenWidth, setScreenWidth] = useState(window.innerWidth < 1024);
     const [searchInput, setSearchInput] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const auth = useAuth();
 
     useEffect(() => {
         const detectSize = () => {
@@ -223,7 +228,7 @@ function Nav() {
                                     </span>
                             }
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent className='w-fit h-fit p-0 rounded-2xl'>
+                        <DropdownMenuContent className='w-fit h-fit p-0 rounded-2xl mr-2 md:mr-0'>
                             <Card className="w-[350px]">
                                 <CardHeader className="text-center">
                                     <CardTitle>Login to your account</CardTitle>
@@ -233,16 +238,16 @@ function Nav() {
                                     <form>
                                         <div className="grid w-full items-center gap-4">
                                             <div className="flex flex-col space-y-1.5">
-                                                <Input className="rounded-none" id="email" placeholder="Email" />
+                                                <Input className="rounded-none" id="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
                                             </div>
                                             <div className="flex flex-col space-y-1.5">
-                                                <Input className="rounded-none" id="password" placeholder="Password" />
+                                                <Input className="rounded-none" id="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
                                             </div>
                                         </div>
                                     </form>
                                 </CardContent>
                                 <CardFooter className="flex justify-between w-full flex-col gap-2.5">
-                                    <Button className="w-full py-5 rounded-none">Login</Button>
+                                    <Button onClick={() => auth?.login(email, password)} className="w-full py-5 rounded-none">Login</Button>
                                     <p className="text-xs">New customer? <NavLink to="/account/register">Create your account</NavLink></p>
                                     <p className="text-xs">Lost password? <a href="#">Recover password</a></p>
                                 </CardFooter>
@@ -256,7 +261,6 @@ function Nav() {
                         </SheetTrigger>
                         <Cart cart={cart} />
                     </Sheet>
-
                 </div>
             </div>
             {
