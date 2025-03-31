@@ -4,11 +4,15 @@ import Nav from "./components/ui/nav"
 import Footer from "./pages/footer"
 import { useEffect } from "react"
 import { useAuth } from "./context/userContextProvider"
+import { useProducts } from "./context/productContextProvider"
 
 function App() {
   const auth = useAuth();
+  const products = useProducts();
   useEffect(() => {
     auth?.getCurrentUser()
+    products?.getAllProduct()
+    console.log(products?.products);
   }, [])
 
   return (

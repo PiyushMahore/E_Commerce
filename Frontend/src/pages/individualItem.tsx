@@ -1,22 +1,34 @@
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator, } from "@/components/ui/breadcrumb"
 import { Button } from "@/components/ui/button";
 import NumberImput from "@/components/ui/numberImput"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { useProducts } from "@/context/productContextProvider";
+
+interface productData {
+    images: string[];
+    title: string;
+    mrp: number;
+    sellingPrice: number;
+    options: string[];
+}
 
 function IndividualItem() {
+    const products = useProducts();
     const [quantity, setQuantity] = useState(1);
-    const [selectedImg, setSelectedImg] = useState('https://www.farmley.com/cdn/shop/files/71fvY4ZjalL._SX679_600x.jpg?v=1739541581');
+    const [product, setProduct] = useState<productData | null>(null);
+    const [size, setSize] = useState<string | null>(null);
+    const [selectedImg, setSelectedImg] = useState<string | "">("");
 
-    const images = [
-        'https://www.farmley.com/cdn/shop/files/71fvY4ZjalL._SX679_600x.jpg?v=1739541581',
-        'https://www.farmley.com/cdn/shop/files/Datebite2_0.8x-20_700x.jpg?v=1739541581',
-        'https://www.farmley.com/cdn/shop/files/Datebite_usecase001_700x.jpg?v=1739541581',
-        'https://www.farmley.com/cdn/shop/files/classic_delight_DB_pk_700x.jpg?v=1739541581',
-        'https://www.farmley.com/cdn/shop/files/Date_bites_Pack_of_2_700x.jpg?v=1739541581',
-        'https://www.farmley.com/cdn/shop/files/Veg-logo_34d4f955-aaf9-4275-838e-f9d5b0c699df_700x.jpg?v=1739541581',
-        'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
-    ];
+    useEffect(() => {
+        products?.getAllProduct();
+    }, [])
+
+    useEffect(() => {
+        setProduct(products?.products?.data[0]);
+        setSize(products?.products?.data[0]?.options[0]);
+        setSelectedImg(products?.products?.data[0].images[0]);
+    }, [products?.products?.data])
 
     return (
         <div className='lg:px-16 px-3 max-w-screen'>
@@ -40,7 +52,7 @@ function IndividualItem() {
                     <div className='w-full shadow border lg:px-5 lg:py-7 flex lg:flex-row flex-col-reverse lg:gap-0 gap-3'>
                         <ScrollArea className="lg:h-[500px] lg:w-1/6 rounded-md w-full h-auto">
                             <div className="lg:grid gap-2 flex">
-                                {images.map((image) => (
+                                {product?.images.map((image: string) => (
                                     <div className={`${selectedImg == image ? "border border-gray-950" : "border-none"} transition-all duration-300 sm:h-[75px] sm:w-[75px] xl:h-[85px] xl:w-[85px]`}>
                                         <img onClick={() => setSelectedImg(image)} className={`w-full h-full bg-cover bg-center p-0.5`} src={image} alt="" />
                                     </div>
@@ -48,7 +60,7 @@ function IndividualItem() {
                             </div>
                         </ScrollArea>
                         <div className="lg:w-4/5 flex items-center justify-center lg:ml-6">
-                            {selectedImg.match(/\.(mp4|webm|ogg)$/) ?
+                            {selectedImg?.match(/\.(mp4|webm|ogg)$/) ?
                                 <video controls className="w-full h-full object-cover">
                                     <source src={selectedImg} />
                                     Your browser does not support the video tag.
@@ -103,26 +115,30 @@ function IndividualItem() {
                 <div className='lg:w-1/2 h-fit shadow border px-5 py-9 flex gap-7 flex-col sticky top-36'>
                     <div className='grid gap-4'>
                         <h1 className='text-2xl font-semibold'>
-                            Panchmeva - Dry Fruits Mix (405g)
+                            {product?.title}
                         </h1>
                         <div className='bg-[#008a00] text-xs px-2.5 py-0.5 rounded-[4px] w-fit text-white font-semibold'>
-                            Save Rs. 80.00
+                            Save Rs. {(product?.mrp && product?.sellingPrice !== undefined) ? (product.mrp - product.sellingPrice).toFixed(2) : "0.00"}
                         </div>
                     </div>
                     <hr />
-                    <div className='grid gap-4'>
+                    {size && <div className='grid gap-4'>
                         <p>
-                            Size: Panchmeva Jar - 405 g
+                            Size: {size}
                         </p>
+
                         <div className='flex gap-3'>
-                            <div className='border border-gray-500 px-4 py-1.5 rounded-[5px]'>
-                                Panchmeva Jar - 405 g
-                            </div>
-                            <div className='border border-gray-500 px-4 py-1.5 rounded-[5px]'>
-                                Pack of 3 (405 g each)
-                            </div>
+                            {
+                                product?.options?.map((option: string) => {
+                                    return (
+                                        <div onClick={() => setSize(option)} className={`${size == option ? "border-2" : ""} cursor-pointer border border-gray-500 px-4 py-1.5 rounded-[5px]`}>
+                                            {option}
+                                        </div>
+                                    )
+                                })
+                            }
                         </div>
-                    </div>
+                    </div>}
                     <div className="flex gap-4">
                         <div className="grid gap-4">
                             <div>
@@ -144,13 +160,13 @@ function IndividualItem() {
                         <div className="grid gap-4">
                             <div>
                                 <h4 className='line-through'>
-                                    Rs. 549.00
+                                    Rs. {(product?.mrp)?.toFixed(2)}
                                 </h4>
                             </div>
                             <div className="mt-2">
                                 <h4 className='flex items-center gap-3.5'>
                                     <span className='text-2xl text-[#008a00]'>
-                                        Rs. 469.00
+                                        Rs. {(product?.sellingPrice)?.toFixed(2)}
                                     </span>
                                     (incl. of all taxes)
                                 </h4>
