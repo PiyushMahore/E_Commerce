@@ -21,4 +21,34 @@ const addProduct = asyncHandler(async (req, res) => {
         .json(new apiResponse(200, product, "Product Added successfully"));
 });
 
-export { addProduct }
+const getSingleProduct = asyncHandler(async (req, res) => {
+    const { productId } = req.param
+
+    if (!productId) {
+        throw new apiError(400, "Product id invalid")
+    }
+
+    const product = await Products.findById(productId);
+
+    if (!product) {
+        throw new apiError(500, "Failed to get product with this product id");
+    }
+
+    return res
+        .status(200)
+        .json(new apiResponse(200, product, "Product fetched successffully"));
+});
+
+const getAllProduct = asyncHandler(async (_, res) => {
+    const products = await Products.find();
+
+    if (!products) {
+        throw new apiError(500, "Unable to get products");
+    }
+
+    return res
+        .status(200)
+        .json(new apiResponse(200, products, "Products fetched successfully"));
+})
+
+export { addProduct, getSingleProduct, getAllProduct }

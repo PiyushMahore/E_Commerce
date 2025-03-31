@@ -260,7 +260,7 @@ function Nav() {
                                         </form>
                                     </CardContent>
                                     <CardFooter className="flex justify-between w-full flex-col gap-2.5">
-                                        <Button onClick={() => auth?.login(email, password)} className="w-full py-5 rounded-none">Login</Button>
+                                        <Button onClick={() => auth?.login(email, password)} className="cursor-pointer w-full py-5 rounded-none">Login</Button>
                                         <p className="text-xs">New customer? <NavLink to="/account/register">Create your account</NavLink></p>
                                         <p className="text-xs">Lost password? <a href="#">Recover password</a></p>
                                     </CardFooter>

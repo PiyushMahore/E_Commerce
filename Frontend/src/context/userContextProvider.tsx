@@ -2,7 +2,7 @@ import { createContext, ReactNode, useContext, useState } from "react";
 import axios from "axios";
 
 interface User {
-    user: any | null;
+    user: any;
     login: (email: string, password: string) => void;
     signUp: (firstName: string, lastName: string, email: string, password: string) => void;
     getCurrentUser: () => void;
