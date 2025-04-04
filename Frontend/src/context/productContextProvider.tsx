@@ -3,8 +3,8 @@ import { createContext, ReactNode, useContext, useState } from "react";
 
 interface product {
     products: any;
-    addProduct: (title: string, images: string[], mrp: number, sellingPrice: number, category: string, options: string[], descriptions: object[]) => void;
-    getOneProduct: (pId: string) => object;
+    addProduct: (title: string, images: string[], mrp: number, sellingPrice: number, category: string, options: string[], descriptions: any[]) => void;
+    getOneProduct: (pId: string) => any;
     getAllProduct: () => void;
 }
 
@@ -17,7 +17,7 @@ interface productProvider {
 export const ProductContextProvider = ({ children }: productProvider) => {
     const [products, setProducts] = useState(null);
 
-    const addProduct = (title: string, images: string[], mrp: number, sellingPrice: number, category: string, options: string[], descriptions: object[]) => {
+    const addProduct = (title: string, images: string[], mrp: number, sellingPrice: number, category: string, options: string[], descriptions: any[]) => {
         axios.post("http://localhost:9000/api/product/add", {
             title,
             mrp,
@@ -34,7 +34,7 @@ export const ProductContextProvider = ({ children }: productProvider) => {
     const getOneProduct = async (pId: string) => {
         try {
             const product = await axios.get(`http://localhost:9000/api/product/get-one/${pId}`);
-            return product;
+            return product.data;
         } catch (error) {
             console.log("failed to get product");
         }

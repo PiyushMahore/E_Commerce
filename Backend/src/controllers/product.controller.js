@@ -10,7 +10,7 @@ const addProduct = asyncHandler(async (req, res) => {
         throw new apiError(400, "Incomplete product details")
     }
 
-    const product = await Products.create({ title, images, mrp, sellingPrice, category: category || "", options: options || [], descriptions });
+    const product = await Products.create({ title, images, mrp: mrp.toFixed(2), sellingPrice: sellingPrice.toFixed(2), category: category || "", options: options || [], descriptions });
 
     if (!product) {
         throw new apiError(500, "Unable to add product");
@@ -22,7 +22,7 @@ const addProduct = asyncHandler(async (req, res) => {
 });
 
 const getSingleProduct = asyncHandler(async (req, res) => {
-    const { productId } = req.param
+    const { productId } = req.params
 
     if (!productId) {
         throw new apiError(400, "Product id invalid")

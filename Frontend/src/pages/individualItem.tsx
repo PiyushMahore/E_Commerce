@@ -11,6 +11,7 @@ interface productData {
     mrp: number;
     sellingPrice: number;
     options: string[];
+    descriptions: any[];
 }
 
 function IndividualItem() {
@@ -21,14 +22,12 @@ function IndividualItem() {
     const [selectedImg, setSelectedImg] = useState<string | "">("");
 
     useEffect(() => {
-        products?.getAllProduct();
+        products?.getOneProduct("67ef993dc9f4c906e324acda")
+            .then((res: any) => {
+                setProduct(res.data)
+                setSelectedImg(res.data.images[0]);
+            });
     }, [])
-
-    useEffect(() => {
-        setProduct(products?.products?.data[0]);
-        setSize(products?.products?.data[0]?.options[0]);
-        setSelectedImg(products?.products?.data[0].images[0]);
-    }, [products?.products?.data])
 
     return (
         <div className='lg:px-16 px-3 max-w-screen'>
@@ -72,29 +71,43 @@ function IndividualItem() {
 
                     <div className='w-full shadow border lg:px-7 px-2 py-7 flex flex-col gap-6'>
                         <h3 className="font-semibold text-xl text-[#283b53]">Description</h3>
-                        <ul className="flex gap-2.5 flex-col text-sm text-[#282b53] list-disc px-5">
-                            <li className="leading-loose">
-                                Introducing Farmley's Date Bites, a delectable dessert crafted from 6 wholesome ingredients - Almonds, Dates, Pista, Cashews, Honey & Ghee.
-                            </li>
-                            <li className="leading-loose">
-                                These bites have no added sugar, offering a guilt-free indulgence.
-                            </li>
-                            <li className="leading-loose">
-                                Packaged for convenience, they're easy to carry, making them an ideal on-the-go snack.
-                            </li>
-                            <li className="leading-loose">
-                                Made from Farmley's signature dry fruits and nuts, each bite is a powerhouse of nutrition.
-                            </li>
-                            <li className="leading-loose">
-                                Whether as a dessert or a quick pick-me-up snack or a sweet yet healthy gifting option, these Date Bites deliver a perfect balance of health and taste.
-                            </li>
-                        </ul>
+
+                        {
+                            product?.descriptions.length === 1 ?
+                                <ul className="flex gap-2.5 flex-col text-sm text-[#282b53] list-disc px-5">
+                                    {product.descriptions && product.descriptions.map((points, idx) => (
+                                        <li key={idx} className="leading-loose">
+                                            {points}
+                                        </li>
+                                    ))}
+                                </ul>
+                                :
+                                <div className="text-sm text-[#282b53] flex flex-col gap-2.5">
+                                    <p>
+                                        Farmley is a dry-fruits & nuts specialist. We have built deep back-end linkages with 5000+ farmers & producers over the years, in order to provide adulteration free products. We blend health & taste in each new product that we curate by undergoing creative innovation and R&D. We are a full-stack brand offering 150+ products, bringing forth everything one can imagine under the umbrella of dry-fruits & nuts.
+                                    </p>
+                                    {product?.descriptions.map((point, idx) => (
+                                        <div key={idx}>
+                                            <p className="font-semibold">
+                                                {point.title}
+                                            </p>
+                                            <p>
+                                                {point.description}
+                                            </p>
+                                        </div>
+                                    ))}
+                                </div>
+                        }
+
                         <div className="text-sm text-[#282b53] grid gap-4 mt-4">
                             <p>
                                 Country Of Origin : India
                             </p>
                             <p>
-                                MRP (Inc. of all taxes) : 400.00 each 180g Jar (10 N x 18g each in Jar)
+                                MRP (Inc. of all taxes) : {product?.mrp.toFixed(2)}
+                            </p>
+                            <p>
+                                Offer Price : {product?.sellingPrice.toFixed(2)}
                             </p>
                             <p>
                                 Shelf Life : 6 Months
