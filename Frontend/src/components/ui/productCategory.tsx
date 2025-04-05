@@ -38,10 +38,10 @@ import {
 import { PiListBulletsBold } from "react-icons/pi";
 
 interface product {
-    img: string;
+    images: string;
     mrp: number;
-    disPrice: number;
-    itemName: string;
+    sellingPrice: number;
+    title: string;
 }
 
 interface props {
@@ -101,7 +101,7 @@ const ProductCategory: FC<props> = ({ category, products }) => {
             <div className="border lg:w-[78%] w-full">
                 <div className="pt-6 lg:pb-4 lg:px-7 grid gap-3 border-b">
                     <h3 className="text-2xl font-semibold lg:px-0 px-5">{category}</h3>
-                    <p className="text-xs lg:hidden px-5">{products.length} Products</p>
+                    <p className="text-xs lg:hidden px-5">{products?.length} Products</p>
                     <div className="flex justify-between text-xs">
                         <div className="lg:flex gap-16 items-center hidden">
                             <span>Showing 1 - 16 of 16 products</span>
@@ -277,15 +277,15 @@ const ProductCategory: FC<props> = ({ category, products }) => {
                                     <CardContent className={`flex ${view == "grid" ? "flex-col" : "lg:flex-row flex-col lg:items-center"} h-full`}>
                                         <div className="relative p-3 flex justify-center items-center">
                                             <div className="bg-green-500 px-5 text-xs text-white font-semibold py-1 rounded-r-sm absolute -left-6 -top-0">
-                                                Save Rs. {product.mrp - product.disPrice}
+                                                Save Rs. {product.mrp - product.sellingPrice}
                                             </div>
-                                            <img className="h-36 cursor-pointer" src={product.img} alt="" />
+                                            <img className="h-36 cursor-pointer" src={product.images[0]} alt="" />
                                         </div>
 
                                         <div className="flex flex-col flex-grow gap-2">
-                                            <CardTitle className={`${view == "grid" ? "" : "xl:text-xl"} text-xs  cursor-pointer`}>{product.itemName}</CardTitle>
+                                            <CardTitle className={`${view == "grid" ? "" : "xl:text-xl"} text-xs  cursor-pointer`}>{product.title}</CardTitle>
                                             <div className="flex items-center w-full gap-3">
-                                                <CardTitle className="text-green-400 text-lg">From Rs. {product.disPrice}</CardTitle>
+                                                <CardTitle className="text-green-400 text-lg">From Rs. {product.sellingPrice}</CardTitle>
                                                 <CardTitle className="text-xs line-through">Rs. {product.mrp}</CardTitle>
                                             </div>
                                         </div>
