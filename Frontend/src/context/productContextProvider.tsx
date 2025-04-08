@@ -41,7 +41,7 @@ export const ProductContextProvider = ({ children }: productProvider) => {
     }
 
     const getAllProduct = () => {
-        axios.get("http://localhost:9000/api/product/get-all")
+        axios.get(`http://localhost:9000/api/product/get-all`)
             .then((res) => setProducts(res.data?.data))
             .catch((err) => console.log("failed to fetch products: ", err));
     }

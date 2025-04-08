@@ -30,7 +30,7 @@ function BestSellers() {
                 </BreadcrumbList>
             </Breadcrumb>
 
-            <ProductCategory category='Best Sellers' products={products?.products} />
+            <ProductCategory category='All Products' products={products?.products} />
         </div>
     )
 }

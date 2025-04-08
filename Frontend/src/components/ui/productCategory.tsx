@@ -29,8 +29,6 @@ interface props {
 
 const ProductCategory: FC<props> = ({ category, products }) => {
     const [view, setView] = useState("grid");
-    const [itemsToBeShownInOnePage, setItemsToBeShownInOnePage] = useState(26);
-
     return (
         <div className="w-full flex justify-between lg:flex-row flex-col">
             <div className="lg:w-[20%] border h-fit p-6 lg:grid gap-2.5 hidden">
@@ -79,17 +77,7 @@ const ProductCategory: FC<props> = ({ category, products }) => {
                     <p className="text-xs lg:hidden px-5">{products?.length} Products</p>
                     <div className="flex justify-between text-xs">
                         <div className="lg:flex gap-16 items-center hidden">
-                            <span>Showing 1 - {itemsToBeShownInOnePage <= products?.length ? itemsToBeShownInOnePage : products?.length} of {products?.length} products</span>
-                            <DropdownMenu>
-                                <DropdownMenuTrigger className="outline-none cursor-pointer">
-                                    <span className="flex items-center gap-2">Display: {itemsToBeShownInOnePage} per page <FaAngleDown size={11} /></span>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent className="mt-1.5 ml-2">
-                                    <DropdownMenuItem onClick={() => setItemsToBeShownInOnePage(24)} className="px-4 py-2.5 cursor-pointer">24 per page</DropdownMenuItem>
-                                    <DropdownMenuItem onClick={() => setItemsToBeShownInOnePage(36)} className="px-4 py-2.5 cursor-pointer">36 per page</DropdownMenuItem>
-                                    <DropdownMenuItem onClick={() => setItemsToBeShownInOnePage(48)} className="px-4 py-2.5 cursor-pointer">48 per page</DropdownMenuItem>
-                                </DropdownMenuContent>
-                            </DropdownMenu>
+                            <span>Showing 1 - {products?.length} products</span>
                         </div>
                         <div className="flex gap-16 items-center justify-between w-full lg:w-fit lg:border-none border py-2 px-5 lg:px-3">
                             <Sheet>
@@ -148,44 +136,44 @@ const ProductCategory: FC<props> = ({ category, products }) => {
                                     <DropdownMenuTrigger className="cursor-pointer">
                                         <span className="flex items-center gap-2">Sort by:<span className="lg:block hidden">Featured</span><FaAngleDown size={11} /></span>
                                     </DropdownMenuTrigger>
-                                    <DropdownMenuContent className="mt-2 ml-4 px-5 py-2">
+                                    <DropdownMenuContent className="mt-2 ml-4 py-2">
                                         <DropdownMenuItem className="cursor-pointer">
-                                            <div>
+                                            <div className="px-5">
                                                 Featured
                                             </div>
                                         </DropdownMenuItem>
                                         <DropdownMenuItem className="cursor-pointer">
-                                            <div>
+                                            <div className="px-5">
                                                 Best Selling
                                             </div>
                                         </DropdownMenuItem>
                                         <DropdownMenuItem className="cursor-pointer">
-                                            <div>
+                                            <div className="px-5">
                                                 Alphabatically, A-Z
                                             </div>
                                         </DropdownMenuItem>
                                         <DropdownMenuItem className="cursor-pointer">
-                                            <div>
+                                            <div className="px-5">
                                                 Alphabatically, Z-A
                                             </div>
                                         </DropdownMenuItem>
                                         <DropdownMenuItem className="cursor-pointer">
-                                            <div>
+                                            <div className="px-5">
                                                 Price, low to high
                                             </div>
                                         </DropdownMenuItem>
                                         <DropdownMenuItem className="cursor-pointer">
-                                            <div>
+                                            <div className="px-5">
                                                 Price, high to low
                                             </div>
                                         </DropdownMenuItem>
                                         <DropdownMenuItem className="cursor-pointer">
-                                            <div>
+                                            <div className="px-5">
                                                 Date, old to new
                                             </div>
                                         </DropdownMenuItem>
                                         <DropdownMenuItem className="cursor-pointer">
-                                            <div>
+                                            <div className="px-5">
                                                 Date, new to old
                                             </div>
                                         </DropdownMenuItem>
@@ -244,7 +232,7 @@ const ProductCategory: FC<props> = ({ category, products }) => {
                                     <CardContent className={`flex ${view == "grid" ? "flex-col" : "lg:flex-row flex-col lg:items-center"} h-full`}>
                                         <div className="relative p-3 flex justify-center items-center">
                                             <div className="bg-green-500 px-5 text-xs text-white font-semibold py-1 rounded-r-sm absolute -left-6 -top-0">
-                                                Save Rs. {product.mrp - product.sellingPrice}
+                                                Save Rs. {(product.mrp - product.sellingPrice)?.toFixed(2)}
                                             </div>
                                             <NavLink to={`/products/${product._id}`}>
                                                 <img className="h-36 cursor-pointer" src={product.images[0]} alt="" />
@@ -276,7 +264,6 @@ const ProductCategory: FC<props> = ({ category, products }) => {
                         ))
                     }
                 </div>
-
             </div>
         </div >
     )

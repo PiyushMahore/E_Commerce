@@ -3,13 +3,13 @@ import { Card, CardContent, CardTitle } from "@/components/ui/card"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import { FC, useEffect, useState } from "react"
 import { GoArrowRight } from "react-icons/go";
-import { NavLink } from "react-router";
 
 interface Products {
-    img: string;
+    _id: string;
+    images: string[];
     mrp: number;
-    disPrice: number;
-    itemName: string;
+    sellingPrice: number;
+    title: string;
 }
 
 interface ProductsCartProps {
@@ -43,32 +43,32 @@ const ProductsCart: FC<ProductsCartProps> = ({ items, category }) => {
             </div>
             <Carousel opts={{ align: "start", slidesToScroll: !screenWidth ? 3 : 1, watchDrag: !screenWidth ? false : true }} className="w-full max-w-screen" >
                 <CarouselContent className="flex items-stretch mx-0">
-                    {items.map((_, index) => (
+                    {items && items.map((item, index) => (
                         <CarouselItem key={index} className="basis-[15rem] md:basis-1/3 lg:basis-1/4 xl:basis-1/5 2xl:basis-1/6 px-0">
                             <div className="p-0">
                                 <Card className="rounded-sm px-2.5">
                                     <CardContent className="flex flex-col gap-6 aspect-square justify-start px-6 h-[350px]">
                                         <div className="p-4 relative">
                                             <div className="bg-green-500 px-3 text-xs text-white font-semibold py-1 rounded-r-sm absolute -left-9 -top-0">
-                                                Save Rs. {_.mrp - _.disPrice}
+                                                Save Rs. {item.mrp - item.sellingPrice}
                                             </div>
-                                            <a href={`/products/${_.itemName}`}>
-                                                <img src={_.img} alt="" />
+                                            <a href={`/products/${item._id}`}>
+                                                <img src={item?.images[0]} alt="" />
                                             </a>
                                         </div>
                                         <CardTitle>
-                                            <a href={`/products/${_.itemName}`}>
-                                                {_.itemName}
+                                            <a href={`/products/${item._id}`}>
+                                                {item.title}
                                             </a>
                                         </CardTitle>
                                         <div className="flex justify-between items-start w-full">
-                                            <CardTitle className="text-green-400 font-semibold ">From Rs.<br />{_.disPrice}</CardTitle>
-                                            <CardTitle className="text-xs line-through">Rs.<br />{_.mrp}</CardTitle>
+                                            <CardTitle className="text-green-400 font-semibold ">From Rs.<br />{item.sellingPrice}</CardTitle>
+                                            <CardTitle className="text-xs line-through">Rs.<br />{item.mrp}</CardTitle>
                                         </div>
                                     </CardContent>
                                     <div className="w-full text-center">
                                         <Button className="rounded-none text-xs cursor-pointer bg-[#283b53] hover:bg-[#547192] px-12 transition-colors ease-in-out duration-300">
-                                            <a href={`/products/${_.itemName}`}>
+                                            <a href={`/products/${item._id}`}>
                                                 Choose Options
                                             </a>
                                         </Button>
