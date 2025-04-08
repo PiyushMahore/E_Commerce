@@ -3,45 +3,23 @@ import { FaAngleDown } from "react-icons/fa6";
 import { FC, useState } from "react";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Button } from "./button";
-import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
-} from "./accordion";
-import { Slider } from "@/components/ui/slider"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./accordion";
+import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
 import { LiaFilterSolid } from "react-icons/lia";
-import {
-    Drawer,
-    DrawerContent,
-    DrawerDescription,
-    DrawerHeader,
-    DrawerTitle,
-    DrawerTrigger,
-} from "@/components/ui/drawer"
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-
-import {
-    Sheet,
-    SheetContent,
-    SheetDescription,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-} from "@/components/ui/sheet"
+import { Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { PiListBulletsBold } from "react-icons/pi";
+import { NavLink } from "react-router";
 
 interface product {
+    _id: string;
     images: string;
     mrp: number;
     sellingPrice: number;
     title: string;
+    options: string[];
 }
 
 interface props {
@@ -51,6 +29,8 @@ interface props {
 
 const ProductCategory: FC<props> = ({ category, products }) => {
     const [view, setView] = useState("grid");
+    const [itemsToBeShownInOnePage, setItemsToBeShownInOnePage] = useState(26);
+
     return (
         <div className="w-full flex justify-between lg:flex-row flex-col">
             <div className="lg:w-[20%] border h-fit p-6 lg:grid gap-2.5 hidden">
@@ -61,19 +41,13 @@ const ProductCategory: FC<props> = ({ category, products }) => {
                         <AccordionContent className="flex flex-col gap-4 justify-center mt-2">
                             <div className="flex items-center space-x-2">
                                 <Checkbox id="terms" />
-                                <label
-                                    htmlFor="terms"
-                                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                >
+                                <label htmlFor="terms" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                                     In stock (41)
                                 </label>
                             </div>
                             <div className="flex items-center space-x-2">
                                 <Checkbox id="terms" />
-                                <label
-                                    htmlFor="terms"
-                                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                >
+                                <label htmlFor="terms" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                                     Out of stock (4)
                                 </label>
                             </div>
@@ -98,24 +72,24 @@ const ProductCategory: FC<props> = ({ category, products }) => {
                     </AccordionItem>
                 </Accordion>
             </div>
+
             <div className="border lg:w-[78%] w-full">
                 <div className="pt-6 lg:pb-4 lg:px-7 grid gap-3 border-b">
                     <h3 className="text-2xl font-semibold lg:px-0 px-5">{category}</h3>
                     <p className="text-xs lg:hidden px-5">{products?.length} Products</p>
                     <div className="flex justify-between text-xs">
                         <div className="lg:flex gap-16 items-center hidden">
-                            <span>Showing 1 - 16 of 16 products</span>
+                            <span>Showing 1 - {itemsToBeShownInOnePage <= products?.length ? itemsToBeShownInOnePage : products?.length} of {products?.length} products</span>
                             <DropdownMenu>
-                                <DropdownMenuTrigger className="outline-none">
-                                    <span className="flex items-center gap-2">Display: 24 per page <FaAngleDown size={11} /></span>
+                                <DropdownMenuTrigger className="outline-none cursor-pointer">
+                                    <span className="flex items-center gap-2">Display: {itemsToBeShownInOnePage} per page <FaAngleDown size={11} /></span>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent className="mt-1.5 ml-2">
-                                    <DropdownMenuItem className="px-4 py-2.5">24 per page</DropdownMenuItem>
-                                    <DropdownMenuItem className="px-4 py-2.5">36 per page</DropdownMenuItem>
-                                    <DropdownMenuItem className="px-4 py-2.5">48 per page</DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => setItemsToBeShownInOnePage(24)} className="px-4 py-2.5 cursor-pointer">24 per page</DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => setItemsToBeShownInOnePage(36)} className="px-4 py-2.5 cursor-pointer">36 per page</DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => setItemsToBeShownInOnePage(48)} className="px-4 py-2.5 cursor-pointer">48 per page</DropdownMenuItem>
                                 </DropdownMenuContent>
                             </DropdownMenu>
-
                         </div>
                         <div className="flex gap-16 items-center justify-between w-full lg:w-fit lg:border-none border py-2 px-5 lg:px-3">
                             <Sheet>
@@ -136,19 +110,13 @@ const ProductCategory: FC<props> = ({ category, products }) => {
                                                 <AccordionContent className="flex flex-col gap-4 justify-center mt-2">
                                                     <div className="flex items-center space-x-2">
                                                         <Checkbox id="terms" />
-                                                        <label
-                                                            htmlFor="terms"
-                                                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                                        >
+                                                        <label htmlFor="terms" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                                                             In stock (41)
                                                         </label>
                                                     </div>
                                                     <div className="flex items-center space-x-2">
                                                         <Checkbox id="terms" />
-                                                        <label
-                                                            htmlFor="terms"
-                                                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                                        >
+                                                        <label htmlFor="terms" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                                                             Out of stock (4)
                                                         </label>
                                                     </div>
@@ -177,53 +145,52 @@ const ProductCategory: FC<props> = ({ category, products }) => {
 
                             <div className="lg:block hidden">
                                 <DropdownMenu>
-                                    <DropdownMenuTrigger>
+                                    <DropdownMenuTrigger className="cursor-pointer">
                                         <span className="flex items-center gap-2">Sort by:<span className="lg:block hidden">Featured</span><FaAngleDown size={11} /></span>
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent className="mt-2 ml-4 px-5 py-2">
-                                        <DropdownMenuItem>
+                                        <DropdownMenuItem className="cursor-pointer">
                                             <div>
                                                 Featured
                                             </div>
                                         </DropdownMenuItem>
-                                        <DropdownMenuItem>
+                                        <DropdownMenuItem className="cursor-pointer">
                                             <div>
                                                 Best Selling
                                             </div>
                                         </DropdownMenuItem>
-                                        <DropdownMenuItem>
+                                        <DropdownMenuItem className="cursor-pointer">
                                             <div>
                                                 Alphabatically, A-Z
                                             </div>
                                         </DropdownMenuItem>
-                                        <DropdownMenuItem>
+                                        <DropdownMenuItem className="cursor-pointer">
                                             <div>
                                                 Alphabatically, Z-A
                                             </div>
                                         </DropdownMenuItem>
-                                        <DropdownMenuItem>
+                                        <DropdownMenuItem className="cursor-pointer">
                                             <div>
                                                 Price, low to high
                                             </div>
                                         </DropdownMenuItem>
-                                        <DropdownMenuItem>
+                                        <DropdownMenuItem className="cursor-pointer">
                                             <div>
                                                 Price, high to low
                                             </div>
                                         </DropdownMenuItem>
-                                        <DropdownMenuItem>
+                                        <DropdownMenuItem className="cursor-pointer">
                                             <div>
                                                 Date, old to new
                                             </div>
                                         </DropdownMenuItem>
-                                        <DropdownMenuItem>
+                                        <DropdownMenuItem className="cursor-pointer">
                                             <div>
                                                 Date, new to old
                                             </div>
                                         </DropdownMenuItem>
                                     </DropdownMenuContent>
                                 </DropdownMenu>
-
                             </div>
                             <div className="lg:hidden">
                                 <Drawer>
@@ -264,10 +231,10 @@ const ProductCategory: FC<props> = ({ category, products }) => {
                                     </DrawerContent>
                                 </Drawer>
                             </div>
-                            <span className="flex items-center gap-2"><span className="lg:block hidden">View</span><BsGrid3X3GapFill className={`transition-colors hover:text-gray-800 duration-300 ${view == "grid" ? "" : "text-gray-400"}`} onClick={() => setView("grid")} size={20} /> <PiListBulletsBold className={`transition-colors hover:text-gray-800 duration-300 ${view == "grid" ? "text-gray-400" : ""}`} onClick={() => setView("list")} size={25} /> </span>
+                            <span className="flex items-center gap-2"><span className="lg:block hidden">View</span><BsGrid3X3GapFill className={`transition-colors hover:text-gray-800 duration-300 cursor-pointer ${view == "grid" ? "" : "text-gray-400"}`} onClick={() => setView("grid")} size={20} /> <PiListBulletsBold className={`transition-colors hover:text-gray-800 duration-300 cursor-pointer ${view == "grid" ? "text-gray-400" : ""}`} onClick={() => setView("list")} size={25} /> </span>
                         </div>
                     </div>
-                </div >
+                </div>
 
                 <div className={`grid justify-center mx-0 w-full ${view == "grid" ? "lg:grid-cols-3 xl:grid-cols-4 grid-cols-2 auto-rows-fr" : "grid-flow-row"}`}>
                     {
@@ -279,20 +246,28 @@ const ProductCategory: FC<props> = ({ category, products }) => {
                                             <div className="bg-green-500 px-5 text-xs text-white font-semibold py-1 rounded-r-sm absolute -left-6 -top-0">
                                                 Save Rs. {product.mrp - product.sellingPrice}
                                             </div>
-                                            <img className="h-36 cursor-pointer" src={product.images[0]} alt="" />
+                                            <NavLink to={`/products/${product._id}`}>
+                                                <img className="h-36 cursor-pointer" src={product.images[0]} alt="" />
+                                            </NavLink>
                                         </div>
 
                                         <div className="flex flex-col flex-grow gap-2">
-                                            <CardTitle className={`${view == "grid" ? "" : "xl:text-xl"} text-xs  cursor-pointer`}>{product.title}</CardTitle>
+                                            <CardTitle className={`${view == "grid" ? "" : "xl:text-xl"} text-xs  cursor-pointer`}>
+                                                <NavLink to={`/products/${product._id}`}>
+                                                    {product.title}
+                                                </NavLink>
+                                            </CardTitle>
                                             <div className="flex items-center w-full gap-3">
-                                                <CardTitle className="text-green-400 text-lg">From Rs. {product.sellingPrice}</CardTitle>
+                                                <CardTitle className="text-green-400 text-lg">
+                                                    From Rs. {product.sellingPrice}
+                                                </CardTitle>
                                                 <CardTitle className="text-xs line-through">Rs. {product.mrp}</CardTitle>
                                             </div>
                                         </div>
 
                                         <div className="mt-auto text-center">
                                             <Button className="cursor-pointer w-full rounded-none text-xs bg-[#283b53] hover:bg-[#547192] px-12 transition-colors ease-in-out duration-300">
-                                                Choose Options
+                                                {product.options.length > 0 ? "Choose Options" : "Add to cart"}
                                             </Button>
                                         </div>
                                     </CardContent>
@@ -302,7 +277,7 @@ const ProductCategory: FC<props> = ({ category, products }) => {
                     }
                 </div>
 
-            </div >
+            </div>
         </div >
     )
 }

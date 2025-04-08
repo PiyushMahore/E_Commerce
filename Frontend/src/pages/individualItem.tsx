@@ -4,6 +4,7 @@ import NumberImput from "@/components/ui/numberImput"
 import { useEffect, useState } from "react"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { useProducts } from "@/context/productContextProvider";
+import { useParams } from "react-router";
 
 interface productData {
     images: string[];
@@ -15,14 +16,16 @@ interface productData {
 }
 
 function IndividualItem() {
+    const { productName } = useParams();
     const products = useProducts();
-    const [quantity, setQuantity] = useState(1);
+    const [quantity, setQuantity] = useState<number>(1);
     const [product, setProduct] = useState<productData | null>(null);
     const [size, setSize] = useState<string | null>(null);
     const [selectedImg, setSelectedImg] = useState<string | "">("");
 
     useEffect(() => {
-        products?.getOneProduct("67ef993dc9f4c906e324acda")
+        window.scroll({ top: 0 })
+        products?.getOneProduct(`${productName}`)
             .then((res: any) => {
                 setProduct(res.data)
                 setSelectedImg(res.data.images[0]);
@@ -38,7 +41,7 @@ function IndividualItem() {
                     </BreadcrumbItem>
                     <BreadcrumbSeparator />
                     <BreadcrumbItem>
-                        <BreadcrumbLink href="/allProducts">All Products</BreadcrumbLink>
+                        <BreadcrumbLink href="/collections/all">All Products</BreadcrumbLink>
                     </BreadcrumbItem>
                     <BreadcrumbSeparator />
                     <BreadcrumbItem>

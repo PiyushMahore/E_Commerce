@@ -31,9 +31,9 @@ export const ProductContextProvider = ({ children }: productProvider) => {
             .catch((err) => console.log("Failed to add product", err));
     }
 
-    const getOneProduct = async (pId: string) => {
+    const getOneProduct = async (productId: string) => {
         try {
-            const product = await axios.get(`http://localhost:9000/api/product/get-one/${pId}`);
+            const product = await axios.get(`http://localhost:9000/api/product/get-one/${productId}`);
             return product.data;
         } catch (error) {
             console.log("failed to get product");
