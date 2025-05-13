@@ -29,6 +29,7 @@ function IndividualItem() {
             .then((res: any) => {
                 setProduct(res.data)
                 setSelectedImg(res.data.images[0]);
+                setSize(res.data.options[0]);
             });
     }, [])
 
@@ -145,7 +146,7 @@ function IndividualItem() {
 
                         <div className='flex gap-3'>
                             {
-                                product?.options?.map((option: string) => {
+                                product?.options.map((option: string) => {
                                     return (
                                         <div onClick={() => setSize(option)} className={`${size == option ? "border-2" : ""} cursor-pointer border border-gray-500 px-4 py-1.5 rounded-[5px]`}>
                                             {option}
